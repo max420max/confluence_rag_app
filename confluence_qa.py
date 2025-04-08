@@ -16,10 +16,13 @@ from typing import Tuple, List
 
 import streamlit as st
 import os
+import sys
+import pysqlite3
 
 from constants import *
 from utils import pretty_print_docs
 
+sys.modules["sqlite3"] = pysqlite3
 class ConfluenceQA:
     def __init__(self):
         self.embedding = None
