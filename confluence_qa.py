@@ -15,6 +15,7 @@ from langchain.retrievers.document_compressors import FlashrankRerank
 from typing import Tuple, List
 
 import streamlit as st
+import os
 
 from constants import *
 from utils import pretty_print_docs
@@ -48,7 +49,8 @@ class ConfluenceQA:
     def init_embeddings(self) -> None:
         # OpenAI ada embeddings API
         #self.embedding = OpenAIEmbeddings()
-        self.embedding = OpenAIEmbeddings(openai_api_key=st.secrets["openai-api-key"])
+        openai_key = st.secrets.get("openai-api-key", os.getenv("openai-api-key"))
+        self.embedding = OpenAIEmbeddings(openai_api_key=openai_key)
 
         self.vectordb = Chroma(
             persist_directory=DB_DIRECTORY,
@@ -58,7 +60,8 @@ class ConfluenceQA:
 
     def init_models(self) -> None:
         # OpenAI GPT
-        self.llm = ChatOpenAI(model_name=LLM, temperature=0.0, openai_api_key=st.secrets["openai-api-key"])
+        openai_key = st.secrets.get("openai-api-key", os.getenv("openai-api-key"))
+        self.llm = ChatOpenAI(model_name=LLM, temperature=0.0, openai_api_key=openai_key)
         
         # Use local LLM hosted by LM Studio
         # self.llm = ChatOpenAI(
@@ -96,7 +99,8 @@ class ConfluenceQA:
         """
         confluence_url = config.get("confluence_url", None)
         username = config.get("username", None)
-        api_key = config.get("api_key", None)
+        #api_key = config.get("api_key", None)
+        api_key = config.get("api_key") or st.secrets.get("confluence-api-token", os.getenv("confluence-api-token"))
         space_key = config.get("space_key", None)
         page_id = config.get("page_id", None)
 
