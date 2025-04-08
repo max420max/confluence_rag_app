@@ -7,3 +7,4 @@ atlassian-python-api
 lxml
 streamlit
 flashrank
+pysqlite3-binary
