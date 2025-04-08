@@ -14,6 +14,8 @@ from langchain.retrievers.document_compressors import FlashrankRerank
 
 from typing import Tuple, List
 
+import streamlit as st
+
 from constants import *
 from utils import pretty_print_docs
 
@@ -45,7 +47,8 @@ class ConfluenceQA:
 
     def init_embeddings(self) -> None:
         # OpenAI ada embeddings API
-        self.embedding = OpenAIEmbeddings()
+        #self.embedding = OpenAIEmbeddings()
+        self.embedding = OpenAIEmbeddings(openai_api_key=st.secrets["openai-api-key"])
 
         self.vectordb = Chroma(
             persist_directory=DB_DIRECTORY,
@@ -55,7 +58,7 @@ class ConfluenceQA:
 
     def init_models(self) -> None:
         # OpenAI GPT
-        self.llm = ChatOpenAI(model_name=LLM, temperature=0.0)
+        self.llm = ChatOpenAI(model_name=LLM, temperature=0.0, openai_api_key=st.secrets["openai-api-key"])
         
         # Use local LLM hosted by LM Studio
         # self.llm = ChatOpenAI(
