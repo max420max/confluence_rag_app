@@ -48,9 +48,10 @@ class ConfluenceQA:
 
     def init_embeddings(self) -> None:
         # OpenAI ada embeddings API
-        self.embedding = OpenAIEmbeddings()
+        #self.embedding = OpenAIEmbeddings()c
+        openai_key = os.getenv("OPENAI_API_KEY")
         #openai_key = st.secrets.get("openai-api-key", os.getenv("openai-api-key"))
-        #self.embedding = OpenAIEmbeddings(openai_api_key=openai_key)
+        self.embedding = OpenAIEmbeddings(openai_api_key=openai_key)
 
         self.vectordb = Chroma(
             persist_directory=DB_DIRECTORY,
