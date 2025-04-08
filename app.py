@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from confluence_qa import ConfluenceQA
 
 
-load_dotenv()
+#load_dotenv()
 
 st.set_page_config(
     page_title='Q&A Bot for Confluence Page',
