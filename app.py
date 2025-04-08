@@ -72,7 +72,7 @@ with st.sidebar.form(key='cf-params'):
     # else:
     #     st.write("Restored previously stored Confluence data")
 
-st.title("Confluence Q&A")
+st.title("Confluence Q&A Retrieval-Augmented Generation ")
 
 question = st.text_input('Ask a question', placeholder="What's the most common cause of ELK issues?")
 
